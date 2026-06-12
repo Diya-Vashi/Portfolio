@@ -1,0 +1,324 @@
+{
+  "siteSettings": {
+    "title": "Diya Vashi — Full-Stack Developer",
+    "description": "Full-Stack Developer specializing in Angular, ASP.NET Core, Node.js and MySQL. MCA student at SRIMCA Bardoli. Research published at ISTE and Springer.",
+    "faviconUrl": "",
+    "ogImageUrl": "",
+    "accentColor": "#0891b2",
+    "fontPair": "dm-sans-cormorant",
+    "sectionVisibility": {
+      "hero": true,
+      "about": true,
+      "skills": true,
+      "experience": true,
+      "projects": true,
+      "research": true,
+      "certifications": true,
+      "education": true,
+      "contact": true
+    },
+    "sectionOrder": [
+      "hero",
+      "about",
+      "skills",
+      "experience",
+      "projects",
+      "research",
+      "certifications",
+      "education",
+      "contact"
+    ]
+  },
+  "personalInfo": {
+    "name": "Diya Vashi",
+    "role": "Full-Stack Developer",
+    "email": "vashidiya@gmail.com",
+    "phone": "",
+    "linkedin": "linkedin.com/in/vashi-diya",
+    "location": "Surat, Gujarat, India",
+    "resumeLink": "/CV/DIYA-VASHI.pdf"
+  },
+  "heroContent": {
+    "badge": "Available for Opportunities",
+    "subtitle": "Full-Stack Developer",
+    "impactStatement": "Building scalable web systems with Angular, ASP.NET Core & Node.js — from production HRMS platforms to research-published healthcare applications.",
+    "roles": [
+      "Full-Stack Developer",
+      "Research Published Author",
+      "ASP.NET Core & Angular Specialist"
+    ]
+  },
+  "aboutContent": {
+    "paragraphs": [
+      "I am a passionate Full-Stack Developer currently pursuing my Master of Computer Applications (MCA) at SRIMCA, Uka Tarsadia University, Bardoli. With a strong foundation in both frontend and backend development, I have successfully delivered production-ready applications that solve real-world problems.",
+      "My journey in software development has been marked by building enterprise-grade HRMS platforms and healthcare applications. I specialize in creating responsive, user-friendly interfaces with Angular and robust backend systems with ASP.NET Core and Node.js.",
+      "Beyond development, I have a keen interest in research. I have published papers in international conferences, focusing on improving healthcare accessibility through technology. My work on BookMyDoc was presented at ISTE National Conference and published by Springer.",
+      "I am constantly learning and adapting to new technologies, with a focus on writing clean, maintainable code and building scalable systems that make a positive impact."
+    ],
+    "stats": [
+      {
+        "value": "8.77",
+        "label": "CGPA (MCA)"
+      },
+      {
+        "value": "2",
+        "label": "Research Papers"
+      },
+      {
+        "value": "5+",
+        "label": "Technologies"
+      },
+      {
+        "value": "1",
+        "label": "Production HRMS"
+      }
+    ]
+  },
+  "skillsContent": {
+    "categories": [
+      {
+        "name": "Languages",
+        "skills": [
+          "C#",
+          "JavaScript",
+          "PHP",
+          "SQL",
+          "Java"
+        ]
+      },
+      {
+        "name": "Frontend",
+        "skills": [
+          "Angular",
+          "HTML",
+          "CSS",
+          "Bootstrap",
+          "Razor Views"
+        ]
+      },
+      {
+        "name": "Backend",
+        "skills": [
+          "ASP.NET Core MVC",
+          "Node.js",
+          "REST APIs"
+        ]
+      },
+      {
+        "name": "Database",
+        "skills": [
+          "MySQL",
+          "SQL Server",
+          "Firebase Firestore"
+        ]
+      },
+      {
+        "name": "Tools",
+        "skills": [
+          "Git",
+          "GitHub",
+          "IIS",
+          "SSMS",
+          "FileZilla",
+          "Vercel"
+        ]
+      },
+      {
+        "name": "Concepts",
+        "skills": [
+          "JWT Auth",
+          "RBAC",
+          "CRUD",
+          "Repository Pattern",
+          "MVC",
+          "OOP"
+        ]
+      }
+    ]
+  },
+  "experienceContent": {
+    "company": "Megaminds Technologies Pvt. Ltd.",
+    "role": "Software Developer Intern",
+    "duration": "Dec 2025 – May 2026",
+    "location": "Adajan, Surat",
+    "tech": [
+      "Angular",
+      "ASP.NET",
+      "Node.js",
+      "Socket.IO",
+      "JWT",
+      "REST APIs",
+      "MySQL"
+    ],
+    "bullets": [
+      "Developed full-stack HRMS & Project Management platform with attendance, recruitment, expense tracking, and task management modules",
+      "Built secure REST APIs with JWT authentication and Role-Based Access Control (RBAC) for multi-user access management",
+      "Implemented real-time notifications, productivity tracking, and dynamic dashboards using Socket.IO and Angular",
+      "Designed reporting features with Excel/PDF export and automated workflows to improve operational efficiency"
+    ]
+  },
+  "projectsContent": [
+    {
+      "title": "BookMyDoc",
+      "subtitle": "Clinic & Appointment Management App",
+      "tags": [
+        "Flutter",
+        "Firebase",
+        "Firebase Auth",
+        "Firestore"
+      ],
+      "isFeatured": true,
+      "hasResearchPublished": true,
+      "bullets": [
+        "Designed and developed a mobile application for clinic management and doctor appointment scheduling",
+        "Implemented user authentication with Firebase Auth and real-time database using Firestore",
+        "Created adaptive rescheduling algorithm for rural and urban clinic efficiency",
+        "Integrated appointment booking, doctor profiles, and clinic management features"
+      ],
+      "conferences": [
+        {
+          "name": "ISTE National Conference",
+          "location": "Ahmedabad",
+          "year": "2025",
+          "type": "National"
+        },
+        {
+          "name": "icSoftComp 2025",
+          "location": "Hanoi, Vietnam",
+          "year": "2025",
+          "type": "International",
+          "publisher": "Springer"
+        }
+      ],
+      "githubLink": "https://github.com/Diya-Vashi/book-my-doc",
+      "liveDemoLink": "https://diya-vashi.github.io/BookMyDocWeb/",
+      "image": ""
+    },
+    {
+      "title": "JourneyJournals",
+      "subtitle": "Travel Diary Web Application",
+      "tags": [
+        "ASP.NET Core MVC",
+        "MySQL"
+      ],
+      "isFeatured": true,
+      "hasResearchPublished": false,
+      "bullets": [
+        "Built a travel diary web application for users to document and share their travel experiences",
+        "Implemented CRUD operations for blog posts with image uploads and rich text editing",
+        "Designed responsive UI using ASP.NET Core MVC with Bootstrap",
+        "Integrated user authentication and profile management features"
+      ],
+      "conferences": [],
+      "githubLink": "https://github.com/Diya-Vashi/JourneyJournals",
+      "liveDemoLink": "#",
+      "image": "",
+      "imageGallery": [
+        "/img/jj/localhost_5000_TravelEntries.png",
+        "/img/jj/localhost_5000_TravelEntries_Create.png",
+        "/img/jj/localhost_5000_TravelEntries_Delete_1.png",
+        "/img/jj/localhost_5000_TravelEntries_Details_1.png",
+        "/img/jj/localhost_5000_TravelEntries_Edit_1.png"
+      ]
+    }
+  ],
+  "publicationsContent": [
+    {
+      "title": "Research Paper: Enhancing Doctor Appointment Systems with Adaptive Rescheduling for Rural and Urban Clinics: BookMyDoc",
+      "date": "December 2025",
+      "badge": "International Journal Publication",
+      "link": "https://www.jetir.org/papers/JETIRHE06013.pdf",
+      "conference": "Journal of Emerging Technologies and Innovative Research (JETIR)",
+      "institution": "Indus University",
+      "publisher": "JETIR",
+      "location": "Ahmedabad"
+    },
+    {
+      "title": "Enhancing Doctor Appointment Systems with Adaptive Rescheduling for Rural and Urban Clinics: BookMyDoc",
+      "conference": "ISTE National Conference",
+      "institution": "Indus University, Ahmedabad",
+      "date": "May 2025",
+      "badge": "National Conference",
+      "link": "https://drive.google.com/file/d/1p2quOFrYTBr2dUVukwea8OcAezsdDmYt/view"
+    },
+    {
+      "title": "icSoftComp 2025 — 7th International Conference on Soft Computing and its Engineering Applications",
+      "organizer": "CHARUSAT",
+      "location": "Hanoi, Vietnam",
+      "date": "December 2025",
+      "publisher": "Springer",
+      "badge": "International — Springer Published",
+      "link": "https://drive.google.com/file/d/1L4zzLDpCkyqAG9H38pktnttl8zbHl_dh/view"
+    }
+  ],
+  "certificationsContent": [
+    {
+      "name": "Claude Code Certification",
+      "issuer": "Anthropic",
+      "badge": "AI Tooling",
+      "credentialLink": "https://drive.google.com/file/d/1lXetZpwb44lCKlX-SXIRB7SwaQCIeVBI/view"
+    },
+    {
+      "name": "NoSQL Database",
+      "issuer": "Great Learning",
+      "badge": "Database",
+      "credentialLink": "https://drive.google.com/file/d/1ZGxjCCQTgC1_OjAaT1tO2pmgqD7ZciPo/view"
+    }
+  ],
+  "educationContent": [
+    {
+      "degree": "Master of Computer Applications (MCA)",
+      "institution": "SRIMCA, Uka Tarsadia University, Bardoli",
+      "duration": "2024 – Present",
+      "cgpa": "8.77",
+      "status": "Currently Pursuing"
+    },
+    {
+      "degree": "Bachelor of Computer Applications (BCA)",
+      "institution": "S.S. Agrawal College, Navsari (VNSGU)",
+      "duration": "2021 – 2024",
+      "cgpa": "7.70",
+      "status": ""
+    }
+  ],
+  "contactContent": {
+    "email": "vashidiya@gmail.com",
+    "phone": "",
+    "linkedin": "https://www.linkedin.com/in/vashi-diya/",
+    "location": "Surat, Gujarat, India",
+    "formspreeUrl": "https://formspree.io/f/TODO"
+  },
+  "socialLinks": {
+    "github": "https://github.com/Diya-Vashi?tab=repositories",
+    "linkedin": "linkedin.com/in/vashi-diya",
+    "email": "vashidiya@gmail.com"
+  },
+  "navLinks": [
+    {
+      "label": "About",
+      "href": "#about"
+    },
+    {
+      "label": "Skills",
+      "href": "#skills"
+    },
+    {
+      "label": "Experience",
+      "href": "#experience"
+    },
+    {
+      "label": "Projects",
+      "href": "#projects"
+    },
+    {
+      "label": "Research",
+      "href": "#research"
+    },
+    {
+      "label": "Contact",
+      "href": "#contact"
+    }
+  ],
+  "customSections": [],
+  "mediaAssets": []
+}

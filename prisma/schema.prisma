@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "library"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model ContactMessage {
+  id         String   @id @default(cuid())
+  name       String
+  email      String
+  subject    String
+  message    String
+  createdAt  DateTime @default(now())
+  isRead     Boolean  @default(false)
+  isStarred  Boolean  @default(false)
+  isArchived Boolean  @default(false)
+}
+
+model AdminUser {
+  id           String        @id @default(cuid())
+  name         String
+  email        String        @unique
+  passwordHash String
+  role         String        @default("Admin") // SuperAdmin, Admin, Editor, Viewer
+  status       String        @default("Active") // Active, Disabled
+  lastLogin    DateTime?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  activities   ActivityLog[]
+}
+
+model ActivityLog {
+  id          String    @id @default(cuid())
+  adminId     String
+  admin       AdminUser @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  action      String
+  target      String?
+  description String?
+  createdAt   DateTime  @default(now())
+}
+
+model Media {
+  id        String   @id @default(cuid())
+  fileName  String
+  url       String
+  mimeType  String
+  size      Int
+  createdAt DateTime @default(now())
+}
+
+model VisitorStat {
+  id        String   @id @default(cuid())
+  path      String
+  views     Int      @default(0)
+  lastVisit DateTime @default(now())
+}
+
+model SiteSettings {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       String
+  description String?
+  updatedAt   DateTime @updatedAt
+}
