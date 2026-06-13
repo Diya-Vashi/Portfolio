@@ -218,13 +218,18 @@ export function Hero({ data }: { data: import('@/types/portfolio').PortfolioData
           className="lg:col-span-6 relative w-full h-[380px] sm:h-[480px] md:h-[600px] mt-12 lg:mt-0"
         >
           {/* Main Portrait Container */}
-          <div className="absolute inset-0 rounded-3xl overflow-hidden border border-white/5 bg-white/5">
+          <div 
+            className="absolute inset-0 rounded-3xl overflow-hidden border border-white/5 bg-white/5 pointer-events-none select-none"
+            onContextMenu={(e) => e.preventDefault()}
+          >
             <Image 
               src={profilePhoto}
               alt={personalInfo.name}
               fill
-              className="object-cover object-top"
+              className="object-cover object-top select-none pointer-events-none"
               priority
+              draggable={false}
+              onContextMenu={(e) => e.preventDefault()}
             />
           </div>
 
