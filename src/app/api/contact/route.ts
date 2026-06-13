@@ -1,7 +1,6 @@
-export const runtime = "nodejs";
+import nodemailer from "nodemailer";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import nodemailer from "nodemailer";
 
 export async function POST(request: Request) {
   try {
@@ -22,65 +21,80 @@ export async function POST(request: Request) {
       },
     });
 
-    // 2. Send email notification (if configured)
+    // 2. Email notification
     if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
-      try {
-        const transporter = nodemailer.createTransport({
-          service: "gmail",
-          auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS,
-          },
-        });
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS,
+        },
+      });
 
-        const htmlTemplate = `
-            <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);">
-              <div style="background-color: #0f172a; padding: 30px 24px; text-align: center;">
-                <h2 style="color: #f8fafc; margin: 0; font-size: 24px; font-weight: 600; letter-spacing: -0.5px;">New Portfolio Message</h2>
+      const mailOptions = {
+        from: `"${name} (Portfolio)" <${process.env.EMAIL_USER}>`,
+        to: process.env.EMAIL_USER, // Send notification to admin's email
+        replyTo: email,
+        subject: `New Portfolio Message: ${subject || "General Inquiry"}`,
+        text: `You have received a new message from your portfolio website.\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+        html: `
+          <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; padding: 0; background-color: #f9f9fb; border-radius: 12px; overflow: hidden; border: 1px solid #eaeaea;">
+            
+            <!-- Header -->
+            <div style="background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); padding: 32px 24px; text-align: center;">
+              <h1 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: 600; letter-spacing: 0.5px;">New Portfolio Message</h1>
+              <p style="margin: 8px 0 0; color: #e2e8f0; font-size: 15px;">You have received a new inquiry</p>
+            </div>
+
+            <!-- Content -->
+            <div style="padding: 32px 24px; background-color: #ffffff;">
+              <div style="margin-bottom: 24px;">
+                <p style="margin: 0 0 6px; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #64748b; font-weight: 600;">Contact Details</p>
+                <table style="width: 100%; border-collapse: collapse;">
+                  <tr>
+                    <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; width: 100px;">
+                      <span style="color: #475569; font-weight: 500; font-size: 15px;">Name:</span>
+                    </td>
+                    <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9;">
+                      <span style="color: #0f172a; font-weight: 600; font-size: 15px;">${name}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9;">
+                      <span style="color: #475569; font-weight: 500; font-size: 15px;">Email:</span>
+                    </td>
+                    <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9;">
+                      <a href="mailto:${email}" style="color: #6366f1; text-decoration: none; font-weight: 600; font-size: 15px;">${email}</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9;">
+                      <span style="color: #475569; font-weight: 500; font-size: 15px;">Subject:</span>
+                    </td>
+                    <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9;">
+                      <span style="color: #0f172a; font-weight: 600; font-size: 15px;">${subject || "General Inquiry"}</span>
+                    </td>
+                  </tr>
+                </table>
               </div>
-              <div style="padding: 32px 24px; background-color: #ffffff;">
-                <div style="padding-bottom: 24px; border-bottom: 1px solid #f1f5f9; margin-bottom: 24px;">
-                  <table style="width: 100%; border-collapse: collapse;">
-                    <tr>
-                      <td style="padding: 4px 0; color: #64748b; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; width: 80px;">From</td>
-                      <td style="padding: 4px 0; color: #0f172a; font-size: 15px; font-weight: 500;">${name}</td>
-                    </tr>
-                    <tr>
-                      <td style="padding: 4px 0; color: #64748b; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Email</td>
-                      <td style="padding: 4px 0; font-size: 15px;"><a href="mailto:${email}" style="color: #0ea5e9; text-decoration: none; font-weight: 500;">${email}</a></td>
-                    </tr>
-                    <tr>
-                      <td style="padding: 4px 0; color: #64748b; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Subject</td>
-                      <td style="padding: 4px 0; color: #0f172a; font-size: 15px; font-weight: 500;">${subject || "General Inquiry"}</td>
-                    </tr>
-                  </table>
-                </div>
-                
-                <h3 style="color: #0f172a; font-size: 16px; margin: 0 0 12px 0; font-weight: 600;">Message Content</h3>
-                <div style="color: #334155; font-size: 15px; line-height: 1.6; white-space: pre-wrap; background-color: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0;">${message}</div>
-                
-                <div style="text-align: center; margin-top: 32px;">
-                  <a href="mailto:${email}?subject=Re: ${encodeURIComponent(subject || "General")}" style="display: inline-block; background-color: #0ea5e9; color: #ffffff; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: 600; font-size: 15px; transition: background-color 0.2s;">Reply to ${name}</a>
-                </div>
-              </div>
-              <div style="background-color: #f8fafc; padding: 20px; text-align: center; font-size: 13px; color: #64748b; border-top: 1px solid #e2e8f0;">
-                Sent from your Portfolio Contact Form • Diya Vashi
+
+              <div>
+                <p style="margin: 0 0 12px; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #64748b; font-weight: 600;">Message</p>
+                <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; color: #334155; font-size: 15px; line-height: 1.6; white-space: pre-wrap;">${message}</div>
               </div>
             </div>
-          `;
 
-        await transporter.sendMail({
-          from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
-          to: process.env.EMAIL_USER,
-          replyTo: email,
-          subject: `New Message from ${name}: ${subject || "General"}`,
-          text: `You have a new message from your portfolio!\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
-          html: htmlTemplate,
-        });
-      } catch (emailError) {
-        console.error("Failed to send email notification:", emailError);
-        // We don't fail the request if just the email fails, the DB save succeeded
-      }
+            <!-- Footer -->
+            <div style="background-color: #f1f5f9; padding: 20px 24px; text-align: center; border-top: 1px solid #e2e8f0;">
+              <p style="margin: 0; color: #64748b; font-size: 13px;">Sent from your Portfolio Contact Form.</p>
+              <p style="margin: 6px 0 0; color: #94a3b8; font-size: 12px;">You can reply directly to this email to respond to ${name}.</p>
+            </div>
+            
+          </div>
+        `,
+      };
+
+      await transporter.sendMail(mailOptions);
     }
 
     return NextResponse.json({ success: true, message: savedMessage });

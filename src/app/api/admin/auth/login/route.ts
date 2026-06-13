@@ -2,9 +2,10 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+import { SignJWT } from "jose";
 
 const JWT_SECRET = process.env.JWT_SECRET || process.env.ADMIN_PASSWORD || "fallback-secret";
+const secretKey = new TextEncoder().encode(JWT_SECRET);
 
 export async function POST(request: Request) {
   try {
@@ -44,11 +45,10 @@ export async function POST(request: Request) {
     });
 
     // Create JWT
-    const token = jwt.sign(
-      { id: admin.id, email: admin.email, role: admin.role, name: admin.name },
-      JWT_SECRET,
-      { expiresIn: "7d" }
-    );
+    const token = await new SignJWT({ id: admin.id, email: admin.email, role: admin.role, name: admin.name })
+      .setProtectedHeader({ alg: 'HS256' })
+      .setExpirationTime('7d')
+      .sign(secretKey);
 
     const cookieStore = await cookies();
     cookieStore.set("admin_token", token, {

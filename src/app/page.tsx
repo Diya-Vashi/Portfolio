@@ -8,12 +8,12 @@ import { Certifications } from "@/components/sections/Certifications";
 import { Education } from "@/components/sections/Education";
 import { Contact } from "@/components/sections/Contact";
 import { DynamicSection } from "@/components/DynamicSection";
-import { siteSettings, customSections as rawCustomSections } from "@/data/portfolio";
+import { getPortfolioData } from "@/data/portfolio";
 import type { CustomSection } from "@/types/portfolio";
 
-const customSections = rawCustomSections as unknown as CustomSection[];
+export const dynamic = 'force-dynamic';
 
-const SECTION_MAP: Record<string, React.FC> = {
+const SECTION_MAP: Record<string, React.FC<any>> = {
   hero: Hero,
   about: About,
   skills: Skills,
@@ -25,9 +25,11 @@ const SECTION_MAP: Record<string, React.FC> = {
   contact: Contact,
 };
 
-export default function Home() {
-  const visibility = siteSettings.sectionVisibility as Record<string, boolean>;
-  const order = siteSettings.sectionOrder;
+export default async function Home() {
+  const data = await getPortfolioData();
+  const visibility = data.siteSettings.sectionVisibility as Record<string, boolean>;
+  const order = data.siteSettings.sectionOrder as string[];
+  const customSections = (data.customSections || []) as unknown as CustomSection[];
 
   const visibleCustom = customSections
     .filter((s) => s.visible)
@@ -39,7 +41,7 @@ export default function Home() {
         if (!visibility[sectionId]) return null;
         const SectionComponent = SECTION_MAP[sectionId];
         if (!SectionComponent) return null;
-        return <SectionComponent key={sectionId} />;
+        return <SectionComponent key={sectionId} data={data} />;
       })}
       {visibleCustom.map((section) => (
         <DynamicSection key={section.id} section={section} />

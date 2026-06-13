@@ -2,6 +2,8 @@ import { AdminAuth } from "@/components/admin/AdminAuth";
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
 import React from "react";
 
+export const dynamic = 'force-dynamic';
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <AdminAuth>

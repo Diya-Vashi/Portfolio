@@ -3,7 +3,7 @@
 import { motion, useInView, useMotionValue, useSpring, animate } from "framer-motion";
 import { useRef, useEffect } from "react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { aboutContent } from "@/data/portfolio";
+
 import { BookOpen, Layers, Rocket } from "lucide-react";
 
 function AnimatedStat({ value, label }: { value: string; label: string }) {
@@ -69,7 +69,8 @@ const itemVariants = {
   },
 };
 
-export function About() {
+export function About({ data }: { data: import('@/types/portfolio').PortfolioData }) {
+  const { aboutContent } = data;
   return (
     <section id="about" className="py-32 px-6 relative overflow-hidden">
       <div className="absolute left-[-8%] top-[40%] -z-10 w-[450px] h-[450px] rounded-full bg-violet-600/5 blur-[130px] pointer-events-none" />

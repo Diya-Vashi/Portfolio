@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { contactContent } from "@/data/portfolio";
+
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 
 const LinkedinIcon = ({ size = 18, className }: { size?: number; className?: string }) => (
@@ -12,7 +12,8 @@ const LinkedinIcon = ({ size = 18, className }: { size?: number; className?: str
   </svg>
 );
 
-export function Contact() {
+export function Contact({ data }: { data: import('@/types/portfolio').PortfolioData }) {
+  const { contactContent, personalInfo } = data;
   const [status, setStatus] = React.useState<"idle" | "loading" | "success" | "error">("idle");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -20,7 +21,7 @@ export function Contact() {
     setStatus("loading");
     
     const formData = new FormData(e.currentTarget);
-    const data = {
+    const dataObj = {
       name: formData.get("name") as string,
       email: formData.get("email") as string,
       subject: formData.get("subject") as string,
@@ -31,7 +32,7 @@ export function Contact() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(dataObj),
       });
 
       if (res.ok) {
@@ -141,7 +142,7 @@ export function Contact() {
                     name="name"
                     required
                     className="w-full px-4 py-3 bg-secondary/30 border border-border rounded-xl text-foreground focus:border-primary/50 focus:ring-primary/10 focus:outline-none transition-all placeholder:text-muted-foreground/45"
-                    placeholder="Diya Vashi"
+                    placeholder={personalInfo.name}
                   />
                 </div>
 
@@ -155,7 +156,7 @@ export function Contact() {
                     name="email"
                     required
                     className="w-full px-4 py-3 bg-secondary/30 border border-border rounded-xl text-foreground focus:border-primary/50 focus:ring-primary/10 focus:outline-none transition-all placeholder:text-muted-foreground/45"
-                    placeholder="diya.vashi@gmail.com"
+                    placeholder="user@example.com"
                   />
                 </div>
 

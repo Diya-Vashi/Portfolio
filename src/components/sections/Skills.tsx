@@ -2,10 +2,11 @@
 
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { skillsContent } from "@/data/portfolio";
+
 import { Code2, Monitor, Cpu, Database, Wrench, Brain } from "lucide-react";
 
-export function Skills() {
+export function Skills({ data }: { data: import('@/types/portfolio').PortfolioData }) {
+  const { skillsContent } = data;
   const getCategoryIcon = (name: string) => {
     switch (name.toLowerCase()) {
       case "languages": return <Code2 className="text-primary" size={18} />;

@@ -3,11 +3,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { navLinks, personalInfo } from "@/data/portfolio";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { usePathname } from "next/navigation";
 
-export function Navbar() {
+export function Navbar({ navLinks, personalInfo }: { navLinks: any[], personalInfo: any }) {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

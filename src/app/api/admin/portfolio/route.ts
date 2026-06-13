@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import fs from 'fs/promises';
-import path from 'path';
+import initialData from '@/data/portfolio.json';
+import { prisma } from '@/lib/prisma';
 
 // Helper to check authentication
 async function isAuthenticated() {
@@ -10,17 +10,18 @@ async function isAuthenticated() {
   return !!token?.value;
 }
 
-const dataFilePath = path.join(process.cwd(), 'src', 'data', 'portfolio.json');
-
 export async function GET() {
   if (!(await isAuthenticated())) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   try {
-    const fileContent = await fs.readFile(dataFilePath, 'utf-8');
-    const data = JSON.parse(fileContent);
-    return NextResponse.json(data);
+    const record = await prisma.portfolioData.findUnique({ where: { id: "singleton" } });
+    if (record) {
+      return NextResponse.json(record.data);
+    }
+    // Fallback to initial JSON if database is empty
+    return NextResponse.json(initialData);
   } catch (error) {
     console.error('Error reading portfolio data:', error);
     return NextResponse.json({ error: 'Failed to load portfolio data' }, { status: 500 });
@@ -33,31 +34,31 @@ export async function POST(request: Request) {
   }
 
   try {
-    // We expect { section: '...', data: { ... } } or just a full data object
     const body = await request.json();
     
     // Read existing
-    const fileContent = await fs.readFile(dataFilePath, 'utf-8');
-    const currentData = JSON.parse(fileContent);
+    const record = await prisma.portfolioData.findUnique({ where: { id: "singleton" } });
+    const currentData = record ? record.data as any : initialData;
     
     let newData;
-    
     if (body.section && body.data !== undefined) {
-      // Update just one section
       newData = {
         ...currentData,
         [body.section]: body.data
       };
     } else {
-      // Merge full data
       newData = {
         ...currentData,
         ...body
       };
     }
 
-    // Save back to file
-    await fs.writeFile(dataFilePath, JSON.stringify(newData, null, 2), 'utf-8');
+    // Save back to DB
+    await prisma.portfolioData.upsert({
+      where: { id: "singleton" },
+      update: { data: newData },
+      create: { id: "singleton", data: newData }
+    });
     
     return NextResponse.json({ success: true, message: 'Portfolio updated successfully' });
   } catch (error) {

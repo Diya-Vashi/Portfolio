@@ -16,7 +16,10 @@ import {
   BookOpen, 
   Globe,
   LogOut,
-  Link as LinkIcon
+  Link as LinkIcon,
+  FileText,
+  Image as ImageIcon,
+  HelpCircle
 } from "lucide-react";
 
 const navGroups = [
@@ -37,6 +40,8 @@ const navGroups = [
       { label: "Certifications", href: "/admin/certifications", icon: Award },
       { label: "Research", href: "/admin/publications", icon: BookOpen },
       { label: "Contact & Links", href: "/admin/contact", icon: LinkIcon },
+      { label: "Media Library", href: "/admin/media", icon: ImageIcon },
+      { label: "Resume Manager", href: "/admin/resume", icon: FileText },
     ]
   },
   {
@@ -45,6 +50,7 @@ const navGroups = [
       { label: "Admin Users", href: "/admin/users", icon: User },
       { label: "Site Settings", href: "/admin/settings", icon: Settings },
       { label: "Device Preview", href: "/admin/preview", icon: Globe },
+      { label: "Help & Guide", href: "/admin/help", icon: HelpCircle },
     ]
   }
 ];

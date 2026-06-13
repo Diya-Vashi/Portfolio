@@ -12,11 +12,13 @@ export default function SettingsPage() {
     themeColor: "#6d28d9",
     seoKeywords: "",
     googleAnalyticsId: "",
+    faviconUrl: "",
   });
   const [newKey, setNewKey] = useState("");
   const [newValue, setNewValue] = useState("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [uploadingFavicon, setUploadingFavicon] = useState(false);
   const [activeTab, setActiveTab] = useState("general");
 
   useEffect(() => {
@@ -39,13 +41,14 @@ export default function SettingsPage() {
     if (e) e.preventDefault();
     setSaving(true);
     try {
-      await fetch("/api/admin/settings", {
+      const res = await fetch("/api/admin/settings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(settings),
       });
-      alert("Settings saved successfully!");
-      fetchSettings(); // Refresh from DB
+      if (res.ok) {
+        alert("Settings saved successfully!");
+      }
     } catch (e) {
       console.error(e);
       alert("Failed to save settings.");
@@ -53,6 +56,39 @@ export default function SettingsPage() {
       setSaving(false);
     }
   };
+
+  const handleFaviconUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/") && !file.name.endsWith(".ico")) {
+      alert("Please upload an image file (.png, .jpg, .ico).");
+      return;
+    }
+
+    setUploadingFavicon(true);
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const res = await fetch("/api/admin/media", {
+        method: "POST",
+        body: formData,
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setSettings(prev => ({ ...prev, faviconUrl: data.media.url }));
+      } else {
+        alert("Favicon upload failed.");
+      }
+    } catch (err) {
+      alert("Error uploading favicon.");
+    } finally {
+      setUploadingFavicon(false);
+      e.target.value = "";
+    }
+  };
+
 
   const handleDelete = async (key: string) => {
     if (!confirm(`Are you sure you want to delete the setting '${key}'?`)) return;
@@ -181,7 +217,7 @@ export default function SettingsPage() {
             )}
 
             {activeTab === "branding" && (
-              <div className="space-y-6">
+              <div className="space-y-8">
                 <div>
                   <label className="text-sm font-medium text-foreground">Primary Theme Color (Hex)</label>
                   <p className="text-xs text-muted-foreground mb-2">The primary brand color for buttons and highlights.</p>
@@ -198,6 +234,38 @@ export default function SettingsPage() {
                       onChange={(e) => setSettings({ ...settings, themeColor: e.target.value })}
                       className="flex-1 px-4 py-2 bg-secondary/50 border border-border rounded-lg text-foreground focus:outline-none focus:border-primary uppercase"
                     />
+                  </div>
+                </div>
+
+                <div className="pt-6 border-t border-border">
+                  <label className="text-sm font-medium text-foreground block mb-1">Site Favicon (Browser Tab Icon)</label>
+                  <p className="text-xs text-muted-foreground mb-4">Upload a square image (PNG or ICO) to appear in the browser tab.</p>
+                  
+                  <div className="flex items-center gap-6">
+                    <div className="h-16 w-16 rounded-xl border border-border bg-secondary/50 flex items-center justify-center overflow-hidden shrink-0 relative">
+                      {settings.faviconUrl ? (
+                        <img src={settings.faviconUrl} alt="Favicon" className="w-8 h-8 object-contain" />
+                      ) : (
+                        <Globe className="text-muted-foreground" size={24} />
+                      )}
+                    </div>
+                    
+                    <div className="flex-1 space-y-3">
+                      <label className="inline-flex items-center justify-center px-4 py-2 bg-secondary text-foreground font-medium rounded-lg hover:bg-secondary/80 transition-colors cursor-pointer text-sm">
+                        {uploadingFavicon ? <><Loader2 size={16} className="animate-spin mr-2" /> Uploading...</> : "Upload New Favicon"}
+                        <input type="file" onChange={handleFaviconUpload} disabled={uploadingFavicon} className="hidden" accept="image/*,.ico" />
+                      </label>
+                      
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={settings.faviconUrl || ""}
+                          onChange={(e) => setSettings({ ...settings, faviconUrl: e.target.value })}
+                          placeholder="Or paste an image URL here..."
+                          className="flex-1 px-3 py-1.5 bg-secondary/30 border border-border rounded-lg text-foreground focus:outline-none focus:border-primary text-xs"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

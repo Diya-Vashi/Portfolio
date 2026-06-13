@@ -1,6 +1,5 @@
 "use client";
 
-import { socialLinks, personalInfo } from "@/data/portfolio";
 
 const GithubIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -23,7 +22,7 @@ const MailIcon = () => (
 
 import { usePathname } from "next/navigation";
 
-export function Footer() {
+export function Footer({ socialLinks, personalInfo }: { socialLinks: any, personalInfo: any }) {
   const pathname = usePathname();
   const currentYear = new Date().getFullYear();
 

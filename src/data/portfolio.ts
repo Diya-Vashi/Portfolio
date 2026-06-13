@@ -1,19 +1,49 @@
-import portfolioData from "./portfolio.json";
+import initialData from "./portfolio.json";
+import { prisma } from "@/lib/prisma";
 
-export const siteSettings = portfolioData.siteSettings;
-export const personalInfo = portfolioData.personalInfo;
-export const heroContent = portfolioData.heroContent;
-export const aboutContent = portfolioData.aboutContent;
-export const skillsContent = portfolioData.skillsContent;
-export const experienceContent = portfolioData.experienceContent;
-export const projectsContent = portfolioData.projectsContent;
-export const publicationsContent = portfolioData.publicationsContent;
-export const certificationsContent = portfolioData.certificationsContent;
-export const educationContent = portfolioData.educationContent;
-export const contactContent = portfolioData.contactContent;
-export const socialLinks = portfolioData.socialLinks;
-export const navLinks = portfolioData.navLinks;
-export const customSections = portfolioData.customSections;
-export const mediaAssets = portfolioData.mediaAssets;
+export async function getPortfolioData() {
+  try {
+    if (!process.env.DATABASE_URL) {
+      console.warn("DATABASE_URL is not set. Returning initial data.");
+      return initialData;
+    }
+    const record = await prisma.portfolioData.findUnique({
+      where: { id: "singleton" },
+    });
 
-export default portfolioData;
+    const settingsRecords = await prisma.siteSettings.findMany();
+    const settingsObj = settingsRecords.reduce((acc: any, curr) => {
+      acc[curr.key] = curr.value;
+      return acc;
+    }, {});
+
+    if (record) {
+      const data = record.data as unknown as typeof initialData;
+      return {
+        ...data,
+        siteSettings: {
+          ...data.siteSettings,
+          ...settingsObj,
+          // Map siteName to title if it exists, since the UI uses siteName
+          title: settingsObj.siteName || data.siteSettings.title,
+          description: settingsObj.siteDescription || data.siteSettings.description,
+        }
+      };
+    }
+    
+    return {
+      ...initialData,
+      siteSettings: {
+        ...initialData.siteSettings,
+        ...settingsObj,
+        title: settingsObj.siteName || initialData.siteSettings.title,
+        description: settingsObj.siteDescription || initialData.siteSettings.description,
+      }
+    };
+  } catch (error) {
+    console.error("Error fetching portfolio data from DB:", error);
+    return initialData;
+  }
+}
+
+export default getPortfolioData;

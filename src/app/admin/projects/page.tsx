@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Save, Plus, Trash2, Code } from "lucide-react";
+import { Save, Plus, Trash2, Code, Image as ImageIcon, Upload, Loader2 } from "lucide-react";
 
 export default function ProjectsAdmin() {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [uploadingImageIdx, setUploadingImageIdx] = useState<number | null>(null);
 
   useEffect(() => {
     fetch("/api/admin/portfolio")
@@ -52,6 +53,38 @@ export default function ProjectsAdmin() {
     const newData = [...data];
     newData[index][field] = value;
     setData(newData);
+  };
+
+  const handleImageUpload = async (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      alert("Please upload an image file.");
+      return;
+    }
+
+    setUploadingImageIdx(index);
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const res = await fetch("/api/admin/media", {
+        method: "POST",
+        body: formData,
+      });
+      if (res.ok) {
+        const result = await res.json();
+        updateProject(index, "image", result.media.url);
+      } else {
+        alert("Upload failed.");
+      }
+    } catch (err) {
+      alert("Error uploading image.");
+    } finally {
+      setUploadingImageIdx(null);
+      e.target.value = "";
+    }
   };
 
   if (loading) return <div className="p-8 text-muted-foreground">Loading...</div>;
@@ -109,6 +142,42 @@ export default function ProjectsAdmin() {
                   <label className="text-sm font-medium text-muted-foreground">Live Demo Link</label>
                   <input type="url" value={proj.liveDemoLink || ""} onChange={e => updateProject(i, "liveDemoLink", e.target.value)} className="w-full bg-secondary/20 border border-border rounded-xl px-4 py-2.5 text-foreground focus:outline-none focus:border-primary/50 transition-colors" />
                 </div>
+                
+                <div className="space-y-2 md:col-span-2">
+                  <label className="text-sm font-medium text-muted-foreground">Project Image</label>
+                  <div className="flex items-center gap-4">
+                    {proj.image ? (
+                      <div className="relative w-24 h-24 rounded-xl border border-border overflow-hidden bg-secondary/30 group/img">
+                        <img src={proj.image} alt={proj.title} className="w-full h-full object-cover" />
+                        <button onClick={() => updateProject(i, "image", "")} className="absolute inset-0 bg-background/80 opacity-0 group-hover/img:opacity-100 flex items-center justify-center transition-opacity text-red-400">
+                          <Trash2 size={18} />
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="w-24 h-24 rounded-xl border-2 border-dashed border-border bg-secondary/10 flex items-center justify-center">
+                        <ImageIcon size={24} className="text-muted-foreground/50" />
+                      </div>
+                    )}
+                    
+                    <div className="flex-1 space-y-2">
+                      <div className="flex gap-2">
+                        <label className="flex items-center gap-2 px-4 py-2 bg-secondary text-foreground font-medium rounded-xl hover:bg-secondary/80 transition-colors cursor-pointer text-sm">
+                          {uploadingImageIdx === i ? <Loader2 size={16} className="animate-spin" /> : <Upload size={16} />}
+                          {uploadingImageIdx === i ? "Uploading..." : "Upload Image"}
+                          <input type="file" onChange={(e) => handleImageUpload(i, e)} disabled={uploadingImageIdx === i} className="hidden" accept="image/*" />
+                        </label>
+                      </div>
+                      <input 
+                        type="url" 
+                        value={proj.image || ""} 
+                        onChange={e => updateProject(i, "image", e.target.value)} 
+                        placeholder="Or paste image URL directly..."
+                        className="w-full bg-secondary/20 border border-border rounded-xl px-3 py-1.5 text-xs text-foreground focus:outline-none focus:border-primary/50 transition-colors" 
+                      />
+                    </div>
+                  </div>
+                </div>
+
                 <div className="flex items-center gap-2">
                   <input type="checkbox" checked={proj.isFeatured || false} onChange={e => updateProject(i, "isFeatured", e.target.checked)} className="w-4 h-4 rounded bg-secondary/20 border-border text-primary focus:ring-primary/50" />
                   <label className="text-sm font-medium text-muted-foreground">Featured Project</label>

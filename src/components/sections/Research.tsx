@@ -2,10 +2,11 @@
 
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { publicationsContent } from "@/data/portfolio";
+
 import { Award, BookOpen } from "lucide-react";
 
-export function Research() {
+export function Research({ data }: { data: import('@/types/portfolio').PortfolioData }) {
+  const { publicationsContent } = data;
   const getPubIcon = (pub: any) => {
     if (pub.publisher?.toLowerCase().includes("springer") || pub.badge?.toLowerCase().includes("springer")) {
       return <Award className="text-primary" size={20} />;

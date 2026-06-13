@@ -2,10 +2,11 @@
 
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { certificationsContent } from "@/data/portfolio";
+
 import { Award, ExternalLink } from "lucide-react";
 
-export function Certifications() {
+export function Certifications({ data }: { data: import('@/types/portfolio').PortfolioData }) {
+  const { certificationsContent } = data;
   return (
     <section id="certifications" className="py-[120px] px-6 relative overflow-hidden">
       {/* Background radial highlight */}

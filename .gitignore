@@ -49,3 +49,5 @@ dev.db-journal
 # Logs
 logs
 *.log
+
+.vercel

@@ -4,8 +4,8 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider   = "prisma-client-js"
-  engineType = "library"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
@@ -50,6 +50,7 @@ model ActivityLog {
 model Media {
   id        String   @id @default(cuid())
   fileName  String
+  publicId  String?
   url       String
   mimeType  String
   size      Int
@@ -70,3 +71,10 @@ model SiteSettings {
   description String?
   updatedAt   DateTime @updatedAt
 }
+
+model PortfolioData {
+  id        String   @id @default("singleton")
+  data      Json
+  updatedAt DateTime @updatedAt
+}
+

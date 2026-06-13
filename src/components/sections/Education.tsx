@@ -2,10 +2,11 @@
 
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { educationContent } from "@/data/portfolio";
+
 import { Calendar, Star } from "lucide-react";
 
-export function Education() {
+export function Education({ data }: { data: import('@/types/portfolio').PortfolioData }) {
+  const { educationContent } = data;
   return (
     <section id="education" className="py-[120px] px-6 relative overflow-hidden">
       {/* Background ambient light */}

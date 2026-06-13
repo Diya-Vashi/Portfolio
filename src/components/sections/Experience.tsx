@@ -2,10 +2,11 @@
 
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { experienceContent } from "@/data/portfolio";
+
 import { Calendar, MapPin, Briefcase, Zap, Shield, Bell, FileBarChart } from "lucide-react";
 
-export function Experience() {
+export function Experience({ data }: { data: import('@/types/portfolio').PortfolioData }) {
+  const { experienceContent } = data;
   const getImpactIcon = (index: number) => {
     switch (index) {
       case 0: return <Zap className="text-primary" size={16} />;

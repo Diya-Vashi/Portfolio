@@ -5,11 +5,6 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   reactCompiler: true,
-  devIndicators: {
-    appIsrStatus: false,
-    buildActivity: false,
-  },
-  serverExternalPackages: ["@prisma/client", "prisma"],
 };
 
 export default nextConfig;

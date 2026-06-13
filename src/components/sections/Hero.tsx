@@ -3,7 +3,7 @@
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { ChevronDown, ArrowRight, Mail } from "lucide-react";
-import { heroContent, personalInfo, socialLinks } from "@/data/portfolio";
+
 import Image from "next/image";
 import profilePhoto from "@/img/Photo.png";
 
@@ -19,7 +19,8 @@ const LinkedinIcon = ({ size = 20 }: { size?: number }) => (
   </svg>
 );
 
-export function Hero() {
+export function Hero({ data }: { data: import('@/types/portfolio').PortfolioData }) {
+  const { heroContent, personalInfo, socialLinks } = data;
   const roles: string[] = (heroContent as { roles?: string[] }).roles ?? [
     "Full-Stack Developer",
     "Research Published Author",
@@ -121,12 +122,20 @@ export function Hero() {
               ))}
             </h1>
 
-            <motion.p
-              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.2 } } }}
-              className="text-sm md:text-lg font-bold text-cyan-400 uppercase tracking-[0.2em]"
-            >
-              ASP.NET CORE & ANGULAR SPECIALIST
-            </motion.p>
+            <div className="h-6 md:h-8 overflow-hidden relative">
+              <AnimatePresence mode="popLayout">
+                <motion.p
+                  key={roleIndex}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                  className="text-sm md:text-lg font-bold text-cyan-400 uppercase tracking-[0.2em] absolute w-full"
+                >
+                  {roles[roleIndex]}
+                </motion.p>
+              </AnimatePresence>
+            </div>
           </div>
 
           {/* Impact statement */}
@@ -212,7 +221,7 @@ export function Hero() {
           <div className="absolute inset-0 rounded-3xl overflow-hidden border border-white/5 bg-white/5">
             <Image 
               src={profilePhoto}
-              alt="Diya Vashi"
+              alt={personalInfo.name}
               fill
               className="object-cover object-top"
               priority
@@ -249,7 +258,7 @@ export function Hero() {
                 <span className="text-violet-600 dark:text-violet-400">const</span>{" "}
                 <span className="text-blue-600 dark:text-blue-400">developer</span> = &#123;{"\n"}
                 {"  "}name:{" "}
-                <span className="text-emerald-600 dark:text-emerald-400">&quot;Diya Vashi&quot;</span>,{"\n"}
+                <span className="text-emerald-600 dark:text-emerald-400">&quot;{personalInfo.name}&quot;</span>,{"\n"}
                 {"  "}specialization:{" "}
                 <span className="text-emerald-600 dark:text-emerald-400">&quot;ASP.NET Core&quot;</span>,{"\n"}
                 {"  "}focus: [{"\n"}

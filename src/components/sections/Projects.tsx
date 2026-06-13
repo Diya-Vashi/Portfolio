@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { projectsContent } from "@/data/portfolio";
+
 import { ExternalLink, GraduationCap, Compass, Image as ImageIcon, X } from "lucide-react";
 
 const GithubIcon = ({ size = 18 }: { size?: number }) => (
@@ -12,7 +12,8 @@ const GithubIcon = ({ size = 18 }: { size?: number }) => (
   </svg>
 );
 
-export function Projects() {
+export function Projects({ data }: { data: import('@/types/portfolio').PortfolioData }) {
+  const { projectsContent } = data;
   const [selectedGallery, setSelectedGallery] = useState<string[] | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
