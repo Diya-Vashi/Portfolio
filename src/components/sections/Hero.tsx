@@ -215,7 +215,7 @@ export function Hero({ data }: { data: import('@/types/portfolio').PortfolioData
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
-          className="lg:col-span-6 relative w-full h-[500px] md:h-[600px] mt-8 lg:mt-0"
+          className="lg:col-span-6 relative w-full h-[380px] sm:h-[480px] md:h-[600px] mt-12 lg:mt-0"
         >
           {/* Main Portrait Container */}
           <div className="absolute inset-0 rounded-3xl overflow-hidden border border-white/5 bg-white/5">
@@ -229,8 +229,8 @@ export function Hero({ data }: { data: import('@/types/portfolio').PortfolioData
           </div>
 
           {/* Badge Overlay (Bottom Left) */}
-          <div className="absolute -left-2 md:-left-6 -bottom-4 bg-stone-100 dark:bg-[#09090d] border border-border px-5 py-2.5 rounded-full z-20 shadow-xl hidden lg:block">
-            <span className="text-[11px] text-muted-foreground tracking-widest font-mono uppercase">
+          <div className="absolute -left-2 md:-left-6 -bottom-4 bg-stone-100 dark:bg-[#09090d] border border-border px-4 py-2 md:px-5 md:py-2.5 rounded-full z-20 shadow-xl scale-90 sm:scale-100 origin-bottom-left">
+            <span className="text-[10px] md:text-[11px] text-muted-foreground tracking-widest font-mono uppercase">
               code • build • impact
             </span>
           </div>
@@ -241,7 +241,7 @@ export function Hero({ data }: { data: import('@/types/portfolio').PortfolioData
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-            className="absolute -right-2 md:-right-8 -bottom-8 md:-bottom-12 w-[280px] md:w-[340px] bg-stone-100/95 dark:bg-[#09090d]/95 backdrop-blur-xl border border-border rounded-2xl p-5 shadow-2xl z-20 cursor-pointer group hidden lg:block"
+            className="absolute -right-2 md:-right-8 -bottom-6 md:-bottom-12 w-[240px] sm:w-[280px] md:w-[340px] bg-stone-100/95 dark:bg-[#09090d]/95 backdrop-blur-xl border border-border rounded-2xl p-4 md:p-5 shadow-2xl z-20 cursor-pointer group scale-85 sm:scale-100 origin-bottom-right"
           >
             {/* Cursor light */}
             <motion.div
@@ -253,7 +253,7 @@ export function Hero({ data }: { data: import('@/types/portfolio').PortfolioData
             />
 
             {/* Code block */}
-            <pre className="font-mono text-[10px] md:text-[11px] leading-[1.8] text-foreground/80 overflow-hidden">
+            <pre className="font-mono text-[9px] md:text-[11px] leading-[1.8] text-foreground/80 overflow-hidden">
               <code>
                 <span className="text-violet-600 dark:text-violet-400">const</span>{" "}
                 <span className="text-blue-600 dark:text-blue-400">developer</span> = &#123;{"\n"}
