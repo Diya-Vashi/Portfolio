@@ -15,7 +15,7 @@ export function Certifications({ data }: { data: import('@/types/portfolio').Por
       <div className="max-w-7xl mx-auto">
         <SectionHeading>{siteSettings.certificationsTitle || "Licenses & Certifications"}</SectionHeading>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {certificationsContent.map((cert, index) => (
             <motion.div
               key={cert.name}
