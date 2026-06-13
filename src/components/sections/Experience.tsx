@@ -7,6 +7,12 @@ import { Calendar, MapPin, Briefcase, Zap, Shield, Bell, FileBarChart } from "lu
 
 export function Experience({ data }: { data: import('@/types/portfolio').PortfolioData }) {
   const { experienceContent, siteSettings } = data;
+  
+  // Normalize legacy object data from database to array
+  const normalizedExperience = Array.isArray(experienceContent) 
+    ? experienceContent 
+    : (experienceContent ? [experienceContent as any] : []);
+
   const getImpactIcon = (index: number) => {
     switch (index) {
       case 0: return <Zap className="text-primary" size={16} />;
@@ -34,10 +40,10 @@ export function Experience({ data }: { data: import('@/types/portfolio').Portfol
         <SectionHeading>{siteSettings.experienceTitle || "Professional Journey"}</SectionHeading>
 
         <div className="space-y-24">
-          {(experienceContent || []).map((exp, expIndex) => (
+          {normalizedExperience.map((exp, expIndex) => (
             <div key={expIndex} className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start relative">
               {/* Optional connector line between multiple experiences if needed */}
-              {expIndex !== experienceContent.length - 1 && (
+              {expIndex !== normalizedExperience.length - 1 && (
                 <div className="hidden lg:block absolute left-[16.666%] top-full bottom-[-6rem] w-[1px] bg-border/50 -z-10" />
               )}
               
