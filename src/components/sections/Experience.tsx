@@ -83,7 +83,7 @@ export function Experience({ data }: { data: import('@/types/portfolio').Portfol
                 <div className="glass-card rounded-2xl p-6">
                   <h4 className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground mb-4">Role Tech Stack</h4>
                   <div className="flex flex-wrap gap-2">
-                    {(exp.tech || []).map((tech) => (
+                    {(exp.tech || []).map((tech: string) => (
                       <span
                         key={tech}
                         className="px-3 py-1.5 text-xs font-normal bg-secondary/50 border border-border rounded-full text-foreground/80 hover:text-foreground hover:bg-secondary transition-colors"
@@ -97,7 +97,7 @@ export function Experience({ data }: { data: import('@/types/portfolio').Portfol
 
               {/* Right Column - Career Storytelling List */}
               <div className="lg:col-span-8 space-y-6">
-                {(exp.bullets || []).map((bullet, index) => (
+                {(exp.bullets || []).map((bullet: string, index: number) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, x: 20 }}
