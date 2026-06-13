@@ -84,7 +84,7 @@ export default async function RootLayout({
         className={`${dmSans.variable} ${cormorant.variable} font-sans min-h-screen flex flex-col antialiased bg-background text-foreground relative overflow-x-hidden`}
       >
         <VisitorTracker />
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           {/* Ambient background glows */}
           <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[1000px] overflow-hidden">
             <div className="absolute left-[10%] top-[-10%] h-[600px] w-[600px] rounded-full bg-violet-600/10 blur-[120px] mesh-glow dark:bg-violet-600/8" />
