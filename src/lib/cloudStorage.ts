@@ -13,17 +13,18 @@ export async function uploadMedia(
   return new Promise((resolve, reject) => {
     const isPdf = mimeType === 'application/pdf' || mimeType?.includes('pdf') || fileName?.toLowerCase().endsWith('.pdf');
     
+    // Cloudinary requires PDFs to be uploaded as 'image' resource_type 
+    // to properly serve them with Content-Type: application/pdf for inline browser viewing.
     const uploadOptions: any = { 
       folder, 
-      resource_type: isPdf ? 'raw' : 'auto' 
+      resource_type: isPdf ? 'image' : 'auto' 
     };
 
-    // For PDFs, we MUST upload as raw and force the public_id to end in .pdf
-    // so the browser downloads/views it correctly.
     if (isPdf) {
-      // Use the provided filename or generate one with .pdf
-      const safeName = fileName ? fileName.replace(/[^a-zA-Z0-9.-]/g, '_') : `resume_${Date.now()}.pdf`;
-      uploadOptions.public_id = safeName.endsWith('.pdf') ? safeName : `${safeName}.pdf`;
+      // Force the format to pdf so Cloudinary knows it's a PDF stream
+      uploadOptions.format = 'pdf';
+      const safeName = fileName ? fileName.replace(/[^a-zA-Z0-9.-]/g, '_').replace(/\.pdf$/i, '') : `resume_${Date.now()}`;
+      uploadOptions.public_id = safeName;
     }
 
     cloudinary.uploader
