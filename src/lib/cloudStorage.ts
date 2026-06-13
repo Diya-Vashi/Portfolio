@@ -10,12 +10,21 @@ export async function uploadMedia(
   mimeType?: string
 ): Promise<{ url: string; publicId: string; format: string; bytes: number; resourceType: string }> {
   return new Promise((resolve, reject) => {
-    // If the file is a PDF, we MUST upload it as "raw" so it doesn't get corrupted as an image
     const isPdf = mimeType === 'application/pdf' || mimeType?.includes('pdf');
-    const rType = isPdf ? 'raw' : 'auto';
+    
+    const uploadOptions: any = { 
+      folder, 
+      resource_type: 'auto' 
+    };
+
+    // If it's a PDF, explicitly set the format so Cloudinary appends .pdf to the URL
+    // since uploading from a buffer loses the original filename and extension.
+    if (isPdf) {
+      uploadOptions.format = 'pdf';
+    }
 
     cloudinary.uploader
-      .upload_stream({ folder, resource_type: rType }, (error, result) => {
+      .upload_stream(uploadOptions, (error, result) => {
         if (error || !result) return reject(error);
         resolve({
           url: result.secure_url,
