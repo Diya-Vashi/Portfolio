@@ -104,7 +104,7 @@ export function About({ data }: { data: import('@/types/portfolio').PortfolioDat
                 </h3>
               </div>
 
-              {aboutContent.paragraphs.slice(0, 2).map((para, i) => (
+              {(aboutContent.blueprintText || []).map((para, i) => (
                 <p
                   key={i}
                   className="text-foreground/75 text-base leading-[1.85] font-normal"
@@ -138,7 +138,7 @@ export function About({ data }: { data: import('@/types/portfolio').PortfolioDat
                   Research & Innovation
                 </h3>
               </div>
-              {aboutContent.paragraphs.slice(2, 4).map((para, i) => (
+              {(aboutContent.researchText || []).map((para, i) => (
                 <p
                   key={i}
                   className="text-muted-foreground text-sm md:text-base leading-[1.85] font-normal"
@@ -147,7 +147,7 @@ export function About({ data }: { data: import('@/types/portfolio').PortfolioDat
               ))}
             </div>
             <div className="shrink-0 flex items-center justify-center px-6 py-4 bg-white/[0.02] border border-border rounded-2xl font-mono text-[11px] text-muted-foreground/50 whitespace-nowrap">
-              // CHARUSAT &amp; Springer Published
+              {aboutContent.researchBadge || "// Research Published"}
             </div>
           </motion.div>
         </motion.div>

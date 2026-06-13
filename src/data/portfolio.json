@@ -49,12 +49,15 @@
     ]
   },
   "aboutContent": {
-    "paragraphs": [
-      "I am a passionate Full-Stack Developer currently pursuing my Master of Computer Applications (MCA) at SRIMCA, Uka Tarsadia University, Bardoli. With a strong foundation in both frontend and backend development, I have successfully delivered production-ready applications that solve real-world problems.",
-      "My journey in software development has been marked by building enterprise-grade HRMS platforms and healthcare applications. I specialize in creating responsive, user-friendly interfaces with Angular and robust backend systems with ASP.NET Core and Node.js.",
-      "Beyond development, I have a keen interest in research. I have published papers in international conferences, focusing on improving healthcare accessibility through technology. My work on BookMyDoc was presented at ISTE National Conference and published by Springer.",
-      "I am constantly learning and adapting to new technologies, with a focus on writing clean, maintainable code and building scalable systems that make a positive impact."
+    "blueprintText": [
+      "My engineering approach is rooted in building resilient, scalable, and highly optimized architectures. I specialize in the ASP.NET Core and Angular ecosystems, developing enterprise-grade backend systems and dynamic user interfaces that solve complex business challenges with clean, maintainable code.",
+      "I believe that great software is the intersection of rigorous logic and creative problem-solving. Whether it's architecting a robust backend, designing a seamless database schema, or integrating cloud infrastructure, my focus is always on delivering performance-driven applications that scale effortlessly."
     ],
+    "researchText": [
+      "Beyond traditional software engineering, I am deeply passionate about Artificial Intelligence and its real-world applications in healthcare. My academic research focuses on deep learning architectures for medical image analysis, bridging the gap between cutting-edge AI and clinical diagnostics.",
+      "I have successfully published research on advanced skin disease detection utilizing customized deep learning frameworks like MobileNetV2 and DenseNet201. My work, recognized in Springer publications and presented at international conferences, reflects my commitment to utilizing technology for impactful innovations."
+    ],
+    "researchBadge": "// CHARUSAT & Springer Published",
     "stats": [
       {
         "value": "8.77",

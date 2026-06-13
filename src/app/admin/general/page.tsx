@@ -16,7 +16,9 @@ export default function GeneralInfoAdmin() {
       roles: [] as string[]
     },
     aboutContent: {
-      paragraphs: [] as string[],
+      blueprintText: [] as string[],
+      researchText: [] as string[],
+      researchBadge: "",
       stats: [] as { label: string; value: string }[]
     }
   });
@@ -34,7 +36,12 @@ export default function GeneralInfoAdmin() {
           setData({
             personalInfo: json.personalInfo || { name: "", resumeLink: "" },
             heroContent: json.heroContent || { badge: "", subtitle: "", impactStatement: "", roles: [] },
-            aboutContent: json.aboutContent || { paragraphs: [], stats: [] }
+            aboutContent: {
+              blueprintText: json.aboutContent?.blueprintText || (json.aboutContent?.paragraphs?.slice(0, 2) || []),
+              researchText: json.aboutContent?.researchText || (json.aboutContent?.paragraphs?.slice(2, 4) || []),
+              researchBadge: json.aboutContent?.researchBadge || "// CHARUSAT & Springer Published",
+              stats: json.aboutContent?.stats || []
+            }
           });
         }
         setLoading(false);
@@ -54,8 +61,16 @@ export default function GeneralInfoAdmin() {
     setData(prev => ({ ...prev, heroContent: { ...prev.heroContent, roles: value.split(",").map(s => s.trim()) } }));
   };
 
-  const updateParagraphs = (value: string) => {
-    setData(prev => ({ ...prev, aboutContent: { ...prev.aboutContent, paragraphs: value.split("\n") } }));
+  const updateBlueprint = (value: string) => {
+    setData(prev => ({ ...prev, aboutContent: { ...prev.aboutContent, blueprintText: value.split("\n") } }));
+  };
+
+  const updateResearch = (value: string) => {
+    setData(prev => ({ ...prev, aboutContent: { ...prev.aboutContent, researchText: value.split("\n") } }));
+  };
+
+  const updateBadge = (value: string) => {
+    setData(prev => ({ ...prev, aboutContent: { ...prev.aboutContent, researchBadge: value } }));
   };
 
   const handleStatChange = (index: number, field: "label" | "value", val: string) => {
@@ -137,8 +152,18 @@ export default function GeneralInfoAdmin() {
             </div>
             
             <div className="space-y-2 md:col-span-2">
-              <label className="text-sm font-medium text-muted-foreground">About Me (Long Bio, one paragraph per line)</label>
-              <textarea rows={6} value={(data.aboutContent.paragraphs || []).join("\n")} onChange={(e) => updateParagraphs(e.target.value)} className="w-full bg-secondary/20 border border-border rounded-xl px-4 py-2.5 text-foreground focus:outline-none focus:border-primary/50 transition-colors resize-none" />
+              <label className="text-sm font-medium text-muted-foreground">The Blueprint Content (One paragraph per line)</label>
+              <textarea rows={4} value={(data.aboutContent.blueprintText || []).join("\n")} onChange={(e) => updateBlueprint(e.target.value)} className="w-full bg-secondary/20 border border-border rounded-xl px-4 py-2.5 text-foreground focus:outline-none focus:border-primary/50 transition-colors resize-none" />
+            </div>
+
+            <div className="space-y-2 md:col-span-2">
+              <label className="text-sm font-medium text-muted-foreground">Research & Innovation Content (One paragraph per line)</label>
+              <textarea rows={4} value={(data.aboutContent.researchText || []).join("\n")} onChange={(e) => updateResearch(e.target.value)} className="w-full bg-secondary/20 border border-border rounded-xl px-4 py-2.5 text-foreground focus:outline-none focus:border-primary/50 transition-colors resize-none" />
+            </div>
+
+            <div className="space-y-2 md:col-span-2">
+              <label className="text-sm font-medium text-muted-foreground">Research Badge Text</label>
+              <input type="text" value={data.aboutContent.researchBadge} onChange={(e) => updateBadge(e.target.value)} className="w-full bg-secondary/20 border border-border rounded-xl px-4 py-2.5 text-foreground focus:outline-none focus:border-primary/50 transition-colors" placeholder="// e.g. Published in Springer" />
             </div>
           </div>
         </div>

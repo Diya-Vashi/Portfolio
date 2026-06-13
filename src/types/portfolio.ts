@@ -21,7 +21,9 @@ export interface Stat {
 }
 
 export interface AboutContent {
-  paragraphs: string[];
+  blueprintText: string[];
+  researchText: string[];
+  researchBadge: string;
   stats: Stat[];
 }
 
