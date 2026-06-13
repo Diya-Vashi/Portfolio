@@ -172,6 +172,14 @@ export interface SiteSettings {
   ogImageUrl: string;
   accentColor: string;
   fontPair: FontPair;
+  aboutTitle?: string;
+  skillsTitle?: string;
+  experienceTitle?: string;
+  projectsTitle?: string;
+  researchTitle?: string;
+  certificationsTitle?: string;
+  educationTitle?: string;
+  contactTitle?: string;
   sectionVisibility: SectionVisibility;
   sectionOrder: string[];
 }

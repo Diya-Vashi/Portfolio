@@ -30,7 +30,7 @@ export function Projects({ data }: { data: import('@/types/portfolio').Portfolio
       <div className="absolute right-[5%] bottom-[30%] -z-10 w-[500px] h-[500px] rounded-full bg-violet-600/5 blur-[130px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto">
-        <SectionHeading>Academic & Personal Projects</SectionHeading>
+        <SectionHeading>{siteSettings.projectsTitle || "Featured Projects"}</SectionHeading>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {projectsContent.map((project, index) => (

@@ -13,6 +13,14 @@ export default function SettingsPage() {
     seoKeywords: "",
     googleAnalyticsId: "",
     faviconUrl: "",
+    aboutTitle: "Engineering Philosophy",
+    skillsTitle: "Technical Arsenal",
+    experienceTitle: "Professional Journey",
+    projectsTitle: "Featured Projects",
+    educationTitle: "Academic Background",
+    certificationsTitle: "Licenses & Certifications",
+    researchTitle: "Research & Publications",
+    contactTitle: "Let's build something extraordinary",
   });
   const [newKey, setNewKey] = useState("");
   const [newValue, setNewValue] = useState("");
@@ -177,6 +185,15 @@ export default function SettingsPage() {
             SEO & Analytics
           </button>
           <button
+            onClick={() => setActiveTab("titles")}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
+              activeTab === "titles" ? "bg-secondary text-foreground" : "text-muted-foreground hover:bg-secondary/50"
+            }`}
+          >
+            <FileText size={18} />
+            Section Titles
+          </button>
+          <button
             onClick={() => setActiveTab("advanced")}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
               activeTab === "advanced" ? "bg-red-500/10 text-red-500" : "text-muted-foreground hover:bg-secondary/50"
@@ -301,6 +318,99 @@ export default function SettingsPage() {
                     value={settings.googleAnalyticsId}
                     onChange={(e) => setSettings({ ...settings, googleAnalyticsId: e.target.value })}
                     className="w-full px-4 py-2 bg-secondary/50 border border-border rounded-lg text-foreground focus:outline-none focus:border-primary"
+                  />
+                </div>
+              </div>
+            )}
+
+            {activeTab === "titles" && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* About Title */}
+                <div>
+                  <label className="text-sm font-medium text-foreground">About Section Title</label>
+                  <input
+                    type="text"
+                    value={settings.aboutTitle}
+                    onChange={(e) => setSettings({ ...settings, aboutTitle: e.target.value })}
+                    className="w-full px-4 py-2 mt-1 bg-secondary/50 border border-border rounded-lg text-foreground focus:outline-none focus:border-primary"
+                    placeholder="Engineering Philosophy"
+                  />
+                </div>
+                {/* Skills Title */}
+                <div>
+                  <label className="text-sm font-medium text-foreground">Skills Section Title</label>
+                  <input
+                    type="text"
+                    value={settings.skillsTitle}
+                    onChange={(e) => setSettings({ ...settings, skillsTitle: e.target.value })}
+                    className="w-full px-4 py-2 mt-1 bg-secondary/50 border border-border rounded-lg text-foreground focus:outline-none focus:border-primary"
+                    placeholder="Technical Arsenal"
+                  />
+                </div>
+                {/* Experience Title */}
+                <div>
+                  <label className="text-sm font-medium text-foreground">Experience Section Title</label>
+                  <input
+                    type="text"
+                    value={settings.experienceTitle}
+                    onChange={(e) => setSettings({ ...settings, experienceTitle: e.target.value })}
+                    className="w-full px-4 py-2 mt-1 bg-secondary/50 border border-border rounded-lg text-foreground focus:outline-none focus:border-primary"
+                    placeholder="Professional Journey"
+                  />
+                </div>
+                {/* Projects Title */}
+                <div>
+                  <label className="text-sm font-medium text-foreground">Projects Section Title</label>
+                  <input
+                    type="text"
+                    value={settings.projectsTitle}
+                    onChange={(e) => setSettings({ ...settings, projectsTitle: e.target.value })}
+                    className="w-full px-4 py-2 mt-1 bg-secondary/50 border border-border rounded-lg text-foreground focus:outline-none focus:border-primary"
+                    placeholder="Featured Projects"
+                  />
+                </div>
+                {/* Education Title */}
+                <div>
+                  <label className="text-sm font-medium text-foreground">Education Section Title</label>
+                  <input
+                    type="text"
+                    value={settings.educationTitle}
+                    onChange={(e) => setSettings({ ...settings, educationTitle: e.target.value })}
+                    className="w-full px-4 py-2 mt-1 bg-secondary/50 border border-border rounded-lg text-foreground focus:outline-none focus:border-primary"
+                    placeholder="Academic Background"
+                  />
+                </div>
+                {/* Certifications Title */}
+                <div>
+                  <label className="text-sm font-medium text-foreground">Certifications Section Title</label>
+                  <input
+                    type="text"
+                    value={settings.certificationsTitle}
+                    onChange={(e) => setSettings({ ...settings, certificationsTitle: e.target.value })}
+                    className="w-full px-4 py-2 mt-1 bg-secondary/50 border border-border rounded-lg text-foreground focus:outline-none focus:border-primary"
+                    placeholder="Licenses & Certifications"
+                  />
+                </div>
+                {/* Research Title */}
+                <div>
+                  <label className="text-sm font-medium text-foreground">Research Section Title</label>
+                  <input
+                    type="text"
+                    value={settings.researchTitle}
+                    onChange={(e) => setSettings({ ...settings, researchTitle: e.target.value })}
+                    className="w-full px-4 py-2 mt-1 bg-secondary/50 border border-border rounded-lg text-foreground focus:outline-none focus:border-primary"
+                    placeholder="Research & Publications"
+                  />
+                </div>
+                {/* Contact Title */}
+                <div className="md:col-span-2">
+                  <label className="text-sm font-medium text-foreground">Contact Section Title (Big Header)</label>
+                  <input
+                    type="text"
+                    value={settings.contactTitle}
+                    onChange={(e) => setSettings({ ...settings, contactTitle: e.target.value })}
+                    className="w-full px-4 py-2 mt-1 bg-secondary/50 border border-border rounded-lg text-foreground focus:outline-none focus:border-primary"
+                    placeholder="Let's build something extraordinary"
                   />
                 </div>
               </div>

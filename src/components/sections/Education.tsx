@@ -6,14 +6,14 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Calendar, Star } from "lucide-react";
 
 export function Education({ data }: { data: import('@/types/portfolio').PortfolioData }) {
-  const { educationContent } = data;
+  const { educationContent, siteSettings } = data;
   return (
     <section id="education" className="py-[120px] px-6 relative overflow-hidden">
       {/* Background ambient light */}
       <div className="absolute left-[-10%] top-[40%] -z-10 w-[400px] h-[400px] rounded-full bg-violet-600/5 blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto">
-        <SectionHeading>Academic Foundation</SectionHeading>
+        <SectionHeading>{siteSettings?.educationTitle || "Academic Background"}</SectionHeading>
 
         <div className="relative border-l border-border max-w-3xl mx-auto pl-8 md:pl-12 space-y-12">
           {educationContent.map((edu, index) => (

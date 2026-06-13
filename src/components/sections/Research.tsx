@@ -6,7 +6,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Award, BookOpen } from "lucide-react";
 
 export function Research({ data }: { data: import('@/types/portfolio').PortfolioData }) {
-  const { publicationsContent } = data;
+  const { publicationsContent, siteSettings } = data;
   const getPubIcon = (pub: any) => {
     if (pub.publisher?.toLowerCase().includes("springer") || pub.badge?.toLowerCase().includes("springer")) {
       return <Award className="text-primary" size={20} />;
@@ -20,7 +20,7 @@ export function Research({ data }: { data: import('@/types/portfolio').Portfolio
       <div className="absolute left-[-5%] top-[10%] -z-10 w-[350px] h-[350px] rounded-full bg-violet-600/5 blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto">
-        <SectionHeading>Research & Publications</SectionHeading>
+        <SectionHeading>{siteSettings?.researchTitle || "Research & Publications"}</SectionHeading>
 
         <div className="space-y-6">
           {publicationsContent.map((pub: any, index) => {

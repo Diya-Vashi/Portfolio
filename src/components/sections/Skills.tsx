@@ -57,7 +57,7 @@ export function Skills({ data }: { data: import('@/types/portfolio').PortfolioDa
       <div className="absolute right-[-10%] top-[20%] -z-10 w-[450px] h-[450px] rounded-full bg-cyan-500/5 blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto">
-        <SectionHeading>Technical Arsenal</SectionHeading>
+        <SectionHeading>{siteSettings.skillsTitle || "Technical Arsenal"}</SectionHeading>
 
         <motion.div
           variants={containerVariants}

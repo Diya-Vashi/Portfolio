@@ -6,16 +6,16 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Award, ExternalLink } from "lucide-react";
 
 export function Certifications({ data }: { data: import('@/types/portfolio').PortfolioData }) {
-  const { certificationsContent } = data;
+  const { certificationsContent, siteSettings } = data;
   return (
     <section id="certifications" className="py-[120px] px-6 relative overflow-hidden">
       {/* Background radial highlight */}
       <div className="absolute right-[-10%] top-[30%] -z-10 w-[350px] h-[350px] rounded-full bg-cyan-500/5 blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto">
-        <SectionHeading>Validated Expertise</SectionHeading>
+        <SectionHeading>{siteSettings.certificationsTitle || "Licenses & Certifications"}</SectionHeading>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {certificationsContent.map((cert, index) => (
             <motion.div
               key={cert.name}

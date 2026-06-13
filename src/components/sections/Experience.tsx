@@ -31,7 +31,7 @@ export function Experience({ data }: { data: import('@/types/portfolio').Portfol
       <div className="absolute left-[5%] bottom-[20%] -z-10 w-[400px] h-[400px] rounded-full bg-violet-600/5 blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto">
-        <SectionHeading>Professional Journey</SectionHeading>
+        <SectionHeading>{siteSettings.experienceTitle || "Professional Journey"}</SectionHeading>
 
         <div className="space-y-24">
           {(experienceContent || []).map((exp, expIndex) => (

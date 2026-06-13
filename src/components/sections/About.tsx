@@ -70,13 +70,13 @@ const itemVariants = {
 };
 
 export function About({ data }: { data: import('@/types/portfolio').PortfolioData }) {
-  const { aboutContent } = data;
+  const { aboutContent, siteSettings } = data;
   return (
     <section id="about" className="py-32 px-6 relative overflow-hidden">
       <div className="absolute left-[-8%] top-[40%] -z-10 w-[450px] h-[450px] rounded-full bg-violet-600/5 blur-[130px] pointer-events-none" />
 
       <div className="max-w-[1400px] mx-auto">
-        <SectionHeading>Engineering Philosophy</SectionHeading>
+        <SectionHeading>{siteSettings.aboutTitle || "Engineering Philosophy"}</SectionHeading>
 
         <motion.div
           variants={containerVariants}

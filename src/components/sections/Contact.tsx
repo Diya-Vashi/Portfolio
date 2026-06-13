@@ -13,7 +13,7 @@ const LinkedinIcon = ({ size = 18, className }: { size?: number; className?: str
 );
 
 export function Contact({ data }: { data: import('@/types/portfolio').PortfolioData }) {
-  const { contactContent, personalInfo } = data;
+  const { contactContent, personalInfo, siteSettings } = data;
   const [status, setStatus] = React.useState<"idle" | "loading" | "success" | "error">("idle");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -55,7 +55,7 @@ export function Contact({ data }: { data: import('@/types/portfolio').PortfolioD
       <div className="absolute right-[-10%] top-[40%] -z-10 w-[400px] h-[400px] rounded-full bg-violet-600/5 blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto">
-        <SectionHeading>Let's Build Something Together</SectionHeading>
+        <SectionHeading>{siteSettings?.contactTitle || "Let's Build Something Together"}</SectionHeading>
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
           
