@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
@@ -19,7 +19,9 @@ import {
   Link as LinkIcon,
   FileText,
   Image as ImageIcon,
-  HelpCircle
+  HelpCircle,
+  Menu,
+  X
 } from "lucide-react";
 
 const navGroups = [
@@ -57,13 +59,53 @@ const navGroups = [
 
 export function AdminSidebar() {
   const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
+
+  // Close sidebar on mobile when route changes
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   return (
-    <aside className="w-64 h-screen bg-background border-r border-border flex flex-col hidden lg:flex sticky top-0">
-      <div className="p-6 border-b border-border">
-        <h2 className="text-xl font-semibold text-foreground tracking-tight">Admin Panel</h2>
-        <p className="text-xs text-muted-foreground mt-1">Portfolio Management</p>
-      </div>
+    <>
+      {/* Mobile Toggle Button */}
+      <button 
+        onClick={() => setIsOpen(true)}
+        className="lg:hidden fixed bottom-6 right-6 z-50 p-4 bg-primary text-primary-foreground rounded-full shadow-2xl flex items-center justify-center cursor-pointer hover:scale-105 transition-transform"
+        aria-label="Open Admin Menu"
+      >
+        <Menu size={24} />
+      </button>
+
+      {/* Mobile Backdrop */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside className={`
+        fixed lg:sticky top-0 left-0 z-50
+        w-72 lg:w-64 h-[100dvh] 
+        bg-background border-r border-border 
+        flex flex-col 
+        transition-transform duration-300 ease-[0.16,1,0.3,1]
+        ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+      `}>
+        <div className="p-6 border-b border-border flex items-center justify-between">
+          <div>
+            <h2 className="text-xl font-semibold text-foreground tracking-tight">Admin Panel</h2>
+            <p className="text-xs text-muted-foreground mt-1">Portfolio Management</p>
+          </div>
+          <button 
+            onClick={() => setIsOpen(false)}
+            className="lg:hidden p-2 text-muted-foreground hover:text-foreground hover:bg-secondary rounded-lg transition-colors"
+          >
+            <X size={20} />
+          </button>
+        </div>
 
       <div className="flex-1 overflow-y-auto py-6 px-4 space-y-8">
         {navGroups.map((group) => (
@@ -113,5 +155,6 @@ export function AdminSidebar() {
         </button>
       </div>
     </aside>
+    </>
   );
 }

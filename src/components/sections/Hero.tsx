@@ -229,7 +229,7 @@ export function Hero({ data }: { data: import('@/types/portfolio').PortfolioData
           </div>
 
           {/* Badge Overlay (Bottom Left) */}
-          <div className="absolute -left-2 md:-left-6 -bottom-4 bg-stone-100 dark:bg-[#09090d] border border-border px-5 py-2.5 rounded-full z-20 shadow-xl">
+          <div className="absolute -left-2 md:-left-6 -bottom-4 bg-stone-100 dark:bg-[#09090d] border border-border px-5 py-2.5 rounded-full z-20 shadow-xl hidden lg:block">
             <span className="text-[11px] text-muted-foreground tracking-widest font-mono uppercase">
               code • build • impact
             </span>
@@ -241,7 +241,7 @@ export function Hero({ data }: { data: import('@/types/portfolio').PortfolioData
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-            className="absolute -right-2 md:-right-8 -bottom-8 md:-bottom-12 w-[280px] md:w-[340px] bg-stone-100/95 dark:bg-[#09090d]/95 backdrop-blur-xl border border-border rounded-2xl p-5 shadow-2xl z-20 cursor-pointer group"
+            className="absolute -right-2 md:-right-8 -bottom-8 md:-bottom-12 w-[280px] md:w-[340px] bg-stone-100/95 dark:bg-[#09090d]/95 backdrop-blur-xl border border-border rounded-2xl p-5 shadow-2xl z-20 cursor-pointer group hidden lg:block"
           >
             {/* Cursor light */}
             <motion.div
