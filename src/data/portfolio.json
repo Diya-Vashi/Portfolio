@@ -139,27 +139,29 @@
       }
     ]
   },
-  "experienceContent": {
-    "company": "Megaminds Technologies Pvt. Ltd.",
-    "role": "Software Developer Intern",
-    "duration": "Dec 2025 – May 2026",
-    "location": "Adajan, Surat",
-    "tech": [
-      "Angular",
-      "ASP.NET",
-      "Node.js",
-      "Socket.IO",
-      "JWT",
-      "REST APIs",
-      "MySQL"
-    ],
-    "bullets": [
-      "Developed full-stack HRMS & Project Management platform with attendance, recruitment, expense tracking, and task management modules",
-      "Built secure REST APIs with JWT authentication and Role-Based Access Control (RBAC) for multi-user access management",
-      "Implemented real-time notifications, productivity tracking, and dynamic dashboards using Socket.IO and Angular",
-      "Designed reporting features with Excel/PDF export and automated workflows to improve operational efficiency"
-    ]
-  },
+  "experienceContent": [
+    {
+      "company": "Megaminds Technologies Pvt. Ltd.",
+      "role": "Software Developer Intern",
+      "duration": "Dec 2025 – May 2026",
+      "location": "Adajan, Surat",
+      "tech": [
+        "Angular",
+        "ASP.NET",
+        "Node.js",
+        "Socket.IO",
+        "JWT",
+        "REST APIs",
+        "MySQL"
+      ],
+      "bullets": [
+        "Developed full-stack HRMS & Project Management platform with attendance, recruitment, expense tracking, and task management modules",
+        "Built secure REST APIs with JWT authentication and Role-Based Access Control (RBAC) for multi-user access management",
+        "Implemented real-time notifications, productivity tracking, and dynamic dashboards using Socket.IO and Angular",
+        "Designed reporting features with Excel/PDF export and automated workflows to improve operational efficiency"
+      ]
+    }
+  ],
   "projectsContent": [
     {
       "title": "BookMyDoc",

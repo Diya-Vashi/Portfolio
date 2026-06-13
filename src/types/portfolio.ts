@@ -190,7 +190,7 @@ export interface PortfolioData {
   heroContent: HeroContent;
   aboutContent: AboutContent;
   skillsContent: SkillsContent;
-  experienceContent: ExperienceContent;
+  experienceContent: ExperienceContent[];
   projectsContent: Project[];
   publicationsContent: Publication[];
   certificationsContent: Certification[];

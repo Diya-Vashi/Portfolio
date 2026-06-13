@@ -21,7 +21,8 @@ import {
   Image as ImageIcon,
   HelpCircle,
   Menu,
-  X
+  X,
+  Code2
 } from "lucide-react";
 
 const navGroups = [
@@ -36,6 +37,7 @@ const navGroups = [
     label: "Content",
     items: [
       { label: "General Info", href: "/admin/general", icon: User },
+      { label: "Skills", href: "/admin/skills", icon: Code2 },
       { label: "Projects", href: "/admin/projects", icon: FileCode },
       { label: "Experience", href: "/admin/experience", icon: Briefcase },
       { label: "Education", href: "/admin/education", icon: GraduationCap },
