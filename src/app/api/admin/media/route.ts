@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
     const buffer = Buffer.from(arrayBuffer);
 
     // Upload to Cloudinary
-    const cloudResponse = await uploadMedia(buffer, "portfolio_media", file.type);
+    const cloudResponse = await uploadMedia(buffer, "portfolio_media", file.type, file.name);
 
     // Save to DB
     const media = await prisma.media.create({

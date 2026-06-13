@@ -7,20 +7,23 @@ import { v2 as cloudinary } from 'cloudinary';
 export async function uploadMedia(
   fileBuffer: Buffer,
   folder: string = 'portfolio',
-  mimeType?: string
+  mimeType?: string,
+  fileName?: string
 ): Promise<{ url: string; publicId: string; format: string; bytes: number; resourceType: string }> {
   return new Promise((resolve, reject) => {
-    const isPdf = mimeType === 'application/pdf' || mimeType?.includes('pdf');
+    const isPdf = mimeType === 'application/pdf' || mimeType?.includes('pdf') || fileName?.toLowerCase().endsWith('.pdf');
     
     const uploadOptions: any = { 
       folder, 
-      resource_type: 'auto' 
+      resource_type: isPdf ? 'raw' : 'auto' 
     };
 
-    // If it's a PDF, explicitly set the format so Cloudinary appends .pdf to the URL
-    // since uploading from a buffer loses the original filename and extension.
+    // For PDFs, we MUST upload as raw and force the public_id to end in .pdf
+    // so the browser downloads/views it correctly.
     if (isPdf) {
-      uploadOptions.format = 'pdf';
+      // Use the provided filename or generate one with .pdf
+      const safeName = fileName ? fileName.replace(/[^a-zA-Z0-9.-]/g, '_') : `resume_${Date.now()}.pdf`;
+      uploadOptions.public_id = safeName.endsWith('.pdf') ? safeName : `${safeName}.pdf`;
     }
 
     cloudinary.uploader
