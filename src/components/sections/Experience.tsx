@@ -6,7 +6,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Calendar, MapPin, Briefcase, Zap, Shield, Bell, FileBarChart } from "lucide-react";
 
 export function Experience({ data }: { data: import('@/types/portfolio').PortfolioData }) {
-  const { experienceContent } = data;
+  const { experienceContent, siteSettings } = data;
   const getImpactIcon = (index: number) => {
     switch (index) {
       case 0: return <Zap className="text-primary" size={16} />;

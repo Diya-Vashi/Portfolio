@@ -13,7 +13,7 @@ const GithubIcon = ({ size = 18 }: { size?: number }) => (
 );
 
 export function Projects({ data }: { data: import('@/types/portfolio').PortfolioData }) {
-  const { projectsContent } = data;
+  const { projectsContent, siteSettings } = data;
   const [selectedGallery, setSelectedGallery] = useState<string[] | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 

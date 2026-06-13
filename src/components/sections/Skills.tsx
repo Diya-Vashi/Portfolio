@@ -6,7 +6,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Code2, Monitor, Cpu, Database, Wrench, Brain } from "lucide-react";
 
 export function Skills({ data }: { data: import('@/types/portfolio').PortfolioData }) {
-  const { skillsContent } = data;
+  const { skillsContent, siteSettings } = data;
   const getCategoryIcon = (name: string) => {
     switch (name.toLowerCase()) {
       case "languages": return <Code2 className="text-primary" size={18} />;
